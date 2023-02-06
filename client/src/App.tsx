@@ -15,6 +15,13 @@ export default function App() {
   const PER_PAGE = 4;
   const totalPages = Math.ceil(books.length / PER_PAGE);
 
+  const booksData = usePagination<Book>(books, PER_PAGE);
+
+  const handlePagination = (p: number) => {
+    setPage(p);
+    booksData.jump(p);
+  };
+
   const fetchBooks = async (query: string) => {
     setLoading(true);
     const res = await fetch(
@@ -22,14 +29,13 @@ export default function App() {
     );
     const books = await res.json();
     setBooks(books);
+
+    if (page !== 1) {
+      setPage(1);
+      handlePagination(1);
+    }
+
     setLoading(false);
-  };
-
-  const booksData = usePagination<Book>(books, PER_PAGE);
-
-  const handlePagination = (p: number) => {
-    setPage(p);
-    booksData.jump(p);
   };
 
   const handleSearch = () => {
