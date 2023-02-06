@@ -118,7 +118,6 @@ You are good to go, server will be available on `https://localhost:5000`
 #### .env file
 ```
 PORT=5000
-HOST=127.0.0.1
 ```
 
 #### Install dependencies & Run the server
